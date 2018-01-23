@@ -1,7 +1,7 @@
-# Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
+﻿# Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Иван Хрипков](https://up.htmlacademy.ru/javascript/12/user/449053).
-* Наставник: `Неизвестно`.
+* Наставник: Alexander Smirnov.
 
 ---
 
