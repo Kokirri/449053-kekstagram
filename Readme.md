@@ -1,9 +1,7 @@
 ﻿# Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Иван Хрипков](https://up.htmlacademy.ru/javascript/12/user/449053).
-* Наставник: Alexander Smirnov.
-
----
+* Наставник: [Alexander Smirnov](https://htmlacademy.ru/profile/id516117).
 
 _Не удаляйте и не обращайте внимание на файлы:_<br>
 _`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `.travis.yml`, `package-lock.json`, `package.json`._
