@@ -1,3 +1,4 @@
+'use strict';
 var comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -58,40 +59,13 @@ var renderPics = function () {
 };
 
 
- var fillGallery = function (picture) {
-   var galleryOverlay = document.querySelector('.gallery-overlay');
-   galleryOverlay.classList.remove('hidden');
-   galleryOverlay.querySelector('img.gallery-overlay-image').src = picture.url;
-   galleryOverlay.querySelector('.likes-count').textContent = picture.likes;
-   galleryOverlay.querySelector('.comments-count').textContent = picture.comments.length;
- };
+var fillGallery = function (picture) {
+  var galleryOverlay = document.querySelector('.gallery-overlay');
+  galleryOverlay.classList.remove('hidden');
+  galleryOverlay.querySelector('img.gallery-overlay-image').src = picture.url;
+  galleryOverlay.querySelector('.likes-count').textContent = picture.likes;
+  galleryOverlay.querySelector('.comments-count').textContent = picture.comments.length;
+};
 
 renderPics();
 fillGallery(photos[0]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
