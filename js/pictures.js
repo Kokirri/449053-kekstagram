@@ -109,10 +109,10 @@ resizeElement.addEventListener('click', function (evt) {
   }
 });
 
-/*var levelPinElement = document.querySelector('.upload-effect-level-pin');
+/* var levelPinElement = document.querySelector('.upload-effect-level-pin');
 levelPinElement.addEventListener('mouseup', function () {
 
-});*/
+}); */
 
 var effectControlsElement = document.querySelector('.upload-effect-controls');
 effectControlsElement.addEventListener('change', function (evt) {
