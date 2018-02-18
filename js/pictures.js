@@ -36,7 +36,6 @@ var getRandomComments = function () {
 
 var photos = getPhotos();
 
-
 var getPicture = function (picture) {
   var pictureTemplate = document.querySelector('#picture-template').content.querySelector('.picture');
   var newPicture = pictureTemplate.cloneNode(true);
@@ -82,20 +81,36 @@ var fillGallery = function (picture) {
 
 renderPics();
 
+var resetUploadOverlay = function () {
+  uploadOverlayElement.classList.add('hidden');
+  uploadFileElement.value = '';
+  effectImagePreviewElement.style.transform = '';
+};
+
+var escKeydownHandler = function (evt) {
+  if (evt.keyCode === 27) {
+    resetUploadOverlay();
+    document.removeEventListener('keydown', escKeydownHandler);
+  }
+};
+
 var uploadOverlayElement = document.querySelector('.upload-overlay');
 var uploadFileElement = document.querySelector('#upload-file');
 uploadFileElement.addEventListener('change', function () {
   uploadOverlayElement.classList.remove('hidden');
+  document.addEventListener('keydown', escKeydownHandler);
 });
+
 var uploadFormCancelElement = document.querySelector('.upload-form-cancel');
-uploadFormCancelElement.addEventListener('click', function () {
-  uploadOverlayElement.classList.add('hidden');
-  uploadFileElement.value = '';
-});
+uploadFormCancelElement.addEventListener('click', resetUploadOverlay);
+
 var effectImagePreviewElement = document.querySelector('.effect-image-preview');
 var resizeValueElement = document.querySelector('.upload-resize-controls-value');
 var resizeElement = document.querySelector('.upload-resize-controls');
 resizeElement.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('upload-resize-controls-value')) {
+    return;
+  }
   var vector = 1;
   var step = 25;
   var inputSize = parseInt(resizeValueElement.value, 10);
@@ -123,4 +138,26 @@ effectControlsElement.addEventListener('change', function (evt) {
   }
 });
 
+var getValidity = function (tagsValue) {
+  var tags = tagsValue.toLowerCase().split(' ');
+  if (tags.length > 5) {
+    return 'Нельзя указать больше пяти хэш-тегов';
+  }
+  var buf = [];
+  for (var i = 0; i < tags.length; i++) {
+    if (tags[i][0] !== '#') {
+      return 'Хэштеги начинаются с символа #';
+    } else if (tags[i].length > 20) {
+      return 'Максимальная длина одного хэш-тега 20 символов';
+    } else if (buf.indexOf(tags[i]) > -1) {
+      return 'Один и тот же хэш-тег не может быть использован дважды';
+    }
+    buf.push(tags[i]);
+  }
+  return '';
+};
 
+var hashtagsInput = document.querySelector('.upload-form-hashtags');
+hashtagsInput.addEventListener('input', function (evt) {
+  evt.target.setCustomValidity(getValidity(evt.target.value));
+});
