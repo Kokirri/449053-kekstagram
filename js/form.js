@@ -1,5 +1,4 @@
 'use strict';
-
 (function () {
   var MIN_X = 0;
   var MAX_X = 450;
@@ -10,6 +9,7 @@
   var resizeElement = document.querySelector('.upload-resize-controls');
   var uploadOverlayElement = document.querySelector('.upload-overlay');
   var uploadFileElement = document.querySelector('#upload-file');
+  var uploadFormElement = document.querySelector('.upload-form');
 
   var uploadFormCancelElement = document.querySelector('.upload-form-cancel');
 
@@ -115,5 +115,17 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+  });
+
+  var successHandler = function () {
+    closeUploadOverlay();
+  };
+  var errorHandler = function (msg) {
+    window.showError(msg);
+  };
+
+  uploadFormElement.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.upload(new FormData(uploadFormElement), successHandler, errorHandler);
   });
 })();

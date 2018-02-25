@@ -1,7 +1,9 @@
 'use strict';
-
 (function () {
   window.getValidity = function (tagsValue) {
+    if (tagsValue === '') {
+      return '';
+    }
     var tags = tagsValue.toLowerCase().trim().split(' ');
     if (tags.length > 5) {
       return 'Нельзя указывать более пяти хэш-тегов';

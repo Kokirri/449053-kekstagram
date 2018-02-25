@@ -16,14 +16,14 @@
     };
   };
 
-  var renderPics = function () {
+  var renderPics = function (photos) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.photos.length; i++) {
-      var pic = window.getPicture(window.photos[i]);
+    for (var i = 0; i < photos.length; i++) {
+      var pic = window.getPicture(photos[i]);
       pic.addEventListener('click', pictureClickHandler(i));
       fragment.appendChild(pic);
     }
     picturesBlock.appendChild(fragment);
   };
-  renderPics();
+  window.load(renderPics, window.showError);
 })();
