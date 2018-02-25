@@ -25,7 +25,5 @@
     }
     picturesBlock.appendChild(fragment);
   };
-  window.load(renderPics, function (msg) {
-    console.log(msg);
-  });
+  window.load(renderPics, window.showError);
 })();
