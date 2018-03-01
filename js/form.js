@@ -21,7 +21,7 @@
   descriptionFormElement.addEventListener('blur', function () {
     document.addEventListener('keydown', escKeydownHandler);
   });
-  
+
   var closeUploadOverlayHandler = function () {
     uploadOverlayElement.classList.add('hidden');
     uploadFileElement.value = '';
