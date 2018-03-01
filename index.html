@@ -95,7 +95,7 @@
 
         <input class="upload-form-hashtags" name="hashtags" placeholder="#хэш-тег" max="20">
 
-        <textarea class="upload-form-description" name="description" placeholder="Ваш комментарий..."></textarea>
+        <textarea class="upload-form-description" name="description" maxlength="140" placeholder="Ваш комментарий..."></textarea>
 
         <button class="upload-form-cancel" type="reset" id="upload-cancel">Закрыть</button>
         <button class="upload-form-submit" type="submit" id="upload-submit">Отправить</button>
@@ -156,11 +156,12 @@
   </div>
 </template>
 
+<script src="js/debounce.js"></script>
 <script src="js/show-error.js"></script>
 <script src="js/backend-load.js"></script>
 <script src="js/backend-upload.js"></script>
 <script src="js/consts.js"></script>
-<script src="js/data.js"></script>
+<script src="js/filters.js"></script>
 <script src="js/form.js"></script>
 <script src="js/hashtags-validation.js"></script>
 <script src="js/overlay.js"></script>

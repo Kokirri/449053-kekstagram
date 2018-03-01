@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var picturesBlock = document.querySelector('.pictures');
+  window.picturesBlockElement = document.querySelector('.pictures');
 
   var keydownHandler = function (evt) {
     if (evt.keyCode === window.consts.ESC_KEYCODE) {
@@ -16,14 +16,19 @@
     };
   };
 
-  var renderPics = function (photos) {
+  window.renderPics = function (photos) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < photos.length; i++) {
       var pic = window.getPicture(photos[i]);
       pic.addEventListener('click', pictureClickHandler(i));
       fragment.appendChild(pic);
     }
-    picturesBlock.appendChild(fragment);
+    window.picturesBlockElement.appendChild(fragment);
   };
-  window.load(renderPics, window.showError);
+  var successHandler = function (photos) {
+    window.photos = photos;
+    window.renderPics(photos);
+    window.showFilters();
+  };
+  window.load(successHandler, window.showError);
 })();
