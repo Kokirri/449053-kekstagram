@@ -10,20 +10,29 @@
   var uploadOverlayElement = document.querySelector('.upload-overlay');
   var uploadFileElement = document.querySelector('#upload-file');
   var uploadFormElement = document.querySelector('.upload-form');
+  var descriptionFormElement = document.querySelector('.upload-form-description');
 
   var uploadFormCancelElement = document.querySelector('.upload-form-cancel');
 
-  var closeUploadOverlay = function () {
+  descriptionFormElement.addEventListener('focus', function () {
+    document.removeEventListener('keydown', escKeydownHandler);
+  });
+
+  descriptionFormElement.addEventListener('blur', function () {
+    document.addEventListener('keydown', escKeydownHandler);
+  });
+
+  var closeUploadOverlayHandler = function () {
     uploadOverlayElement.classList.add('hidden');
     uploadFileElement.value = '';
     effectImagePreviewElement.style.transform = '';
   };
 
-  uploadFormCancelElement.addEventListener('click', closeUploadOverlay);
+  uploadFormCancelElement.addEventListener('click', closeUploadOverlayHandler);
 
   var escKeydownHandler = function (evt) {
     if (evt.keyCode === window.consts.ESC_KEYCODE) {
-      closeUploadOverlay();
+      closeUploadOverlayHandler();
       document.removeEventListener('keydown', escKeydownHandler);
     }
   };
@@ -86,7 +95,7 @@
     var startCoords = {
       x: evt.clientX
     };
-    var onMouseMove = function (moveEvt) {
+    var mouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
@@ -107,19 +116,20 @@
       }
     };
 
-    var onMouseUp = function (upEvt) {
+    var mouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
     };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
   });
 
   var successHandler = function () {
-    closeUploadOverlay();
+    closeUploadOverlayHandler();
   };
+
   var errorHandler = function (msg) {
     window.showError(msg);
   };

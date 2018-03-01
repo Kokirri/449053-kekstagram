@@ -876,11 +876,12 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   left: 0;
   width: 100%;
   height: 30px;
-  background: blue;
-  color: red;
+  background: rgba(194, 180, 110, 1);
+  color: rgba(161, 45, 45, 1);
   font-weight: bold;
   font-size: 20px;
   text-align: center;
+  z-index: 2
 }
 
 .error-msg {
@@ -889,5 +890,6 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
 
 .error-close {
   float: right;
-  margin-right: 10px;
+  background-color: black;
+  padding: 2px 7px 2px 7px;
 }
