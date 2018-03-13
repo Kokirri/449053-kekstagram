@@ -893,3 +893,14 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   background-color: black;
   padding: 2px 7px 2px 7px;
 }
+
+#upload input {
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+
+  left: 0;
+  top: 0;
+}

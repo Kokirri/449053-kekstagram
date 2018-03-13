@@ -4,14 +4,11 @@
   var MAX_X = 450;
   var currentEffect = 'none';
   var effectValue = 1;
-  var effectImagePreviewElement = document.querySelector('.effect-image-preview');
   var resizeValueElement = document.querySelector('.upload-resize-controls-value');
   var resizeElement = document.querySelector('.upload-resize-controls');
   var uploadOverlayElement = document.querySelector('.upload-overlay');
-  var uploadFileElement = document.querySelector('#upload-file');
   var uploadFormElement = document.querySelector('.upload-form');
   var descriptionFormElement = document.querySelector('.upload-form-description');
-
   var uploadFormCancelElement = document.querySelector('.upload-form-cancel');
 
   descriptionFormElement.addEventListener('focus', function () {
@@ -22,10 +19,16 @@
     document.addEventListener('keydown', escKeydownHandler);
   });
 
+  var setDefaults = function () {
+    effectLevelElement.classList.add('hidden');
+    window.effectImagePreviewElement.style.filter = '';
+    window.effectImagePreviewElement.className = 'effect-image-preview';
+  };
+
   var closeUploadOverlayHandler = function () {
     uploadOverlayElement.classList.add('hidden');
-    uploadFileElement.value = '';
-    effectImagePreviewElement.style.transform = '';
+    uploadFormElement.reset();
+    setDefaults();
   };
 
   uploadFormCancelElement.addEventListener('click', closeUploadOverlayHandler);
@@ -37,7 +40,7 @@
     }
   };
 
-  uploadFileElement.addEventListener('change', function () {
+  window.uploadFileElement.addEventListener('change', function () {
     uploadOverlayElement.classList.remove('hidden');
     document.addEventListener('keydown', escKeydownHandler);
   });
@@ -54,7 +57,7 @@
     }
     var value = inputSize + vector * step;
     if (value >= 25 && value <= 100) {
-      effectImagePreviewElement.style.transform = 'scale(' + (value / 100) + ')';
+      window.effectImagePreviewElement.style.transform = 'scale(' + (value / 100) + ')';
       resizeValueElement.value = value + '%';
     }
   });
@@ -64,14 +67,13 @@
     var target = evt.target;
     if (target.name === 'effect') {
       currentEffect = target.value;
-      effectImagePreviewElement.className = 'effect-image-preview';
-      effectImagePreviewElement.classList.add('effect-' + currentEffect);
+      window.effectImagePreviewElement.className = 'effect-image-preview';
+      window.effectImagePreviewElement.classList.add('effect-' + currentEffect);
       if (currentEffect === 'none') {
-        effectLevelElement.classList.add('hidden');
-        effectImagePreviewElement.style.filter = '';
+        setDefaults();
       } else {
         effectLevelElement.classList.remove('hidden');
-        effectImagePreviewElement.style.filter = getEffectStyle(currentEffect, effectValue);
+        setPinPosition(MAX_X, 1);
       }
     }
   });
@@ -85,6 +87,12 @@
       case 'heat': return 'brightness(' + value * 3 + ')';
       default: return '';
     }
+  };
+
+  var setPinPosition = function (currentPosition, effectVal) {
+    window.effectImagePreviewElement.style.filter = getEffectStyle(currentEffect, effectVal);
+    levelPinElement.style.left = currentPosition + 'px';
+    levelValElement.style.width = effectVal * 100 + '%';
   };
 
   var effectLevelElement = document.querySelector('.upload-effect-level');
@@ -110,9 +118,7 @@
       effectValue = currentPosition / MAX_X;
 
       if (currentPosition >= MIN_X && currentPosition <= MAX_X) {
-        effectImagePreviewElement.style.filter = getEffectStyle(currentEffect, effectValue);
-        levelPinElement.style.left = currentPosition + 'px';
-        levelValElement.style.width = effectValue * 100 + '%';
+        setPinPosition(currentPosition, effectValue);
       }
     };
 
